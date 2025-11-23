@@ -27,7 +27,7 @@ public class CalculatorClient {
         if (args.length > 0) {
             HOST = args[0];
         } else {
-            System.out.print("🌐 Entrez l'adresse IP du serveur [localhost]: ");
+            System.out.print("Entrez l'adresse IP du serveur [localhost]: ");
             String input = scanner.nextLine().trim();
             if (!input.isEmpty()) {
                 HOST = input;
@@ -35,29 +35,29 @@ public class CalculatorClient {
         }
 
         try {
-            System.out.println("🔍 Connexion au serveur Calculatrice RMI...");
-            System.out.println("📡 Tentative de connexion à: " + HOST + ":" + PORT);
+            System.out.println("Connexion au serveur Calculatrice RMI...");
+            System.out.println("Tentative de connexion à: " + HOST + ":" + PORT);
             
             Registry registry = LocateRegistry.getRegistry(HOST, PORT);
 
-            System.out.println("🔎 Recherche du service: " + SERVICE_NAME);
+            System.out.println("Recherche du service: " + SERVICE_NAME);
             Calculator calculator = (Calculator) registry.lookup(SERVICE_NAME);
 
-            System.out.println("✅ Connecté au serveur Calculatrice!");
-            System.out.println("📋 Informations serveur: " + calculator.getServerInfo());
-            System.out.println("🌐 Adresse du serveur: " + HOST);
+            System.out.println("Connecté au serveur Calculatrice!");
+            System.out.println("Informations serveur: " + calculator.getServerInfo());
+            System.out.println("Adresse du serveur: " + HOST);
 
             runCalculator(calculator, scanner);
 
         } catch (Exception e) {
-            System.err.println("❌ Erreur client: " + e.getMessage());
-            System.err.println("💡 Vérifiez que:");
+            System.err.println("Erreur client: " + e.getMessage());
+            System.err.println("Vérifiez que:");
             System.err.println("   - Le serveur est démarré sur " + HOST);
             System.err.println("   - Le port " + PORT + " est accessible");
             System.err.println("   - Les firewalls permettent la communication");
         } finally {
             scanner.close();
-            System.out.println("👋 Client fermé");
+            System.out.println("Client fermé");
         }
     }
     
@@ -67,12 +67,12 @@ public class CalculatorClient {
     private static void runCalculator(Calculator calculator, Scanner scanner) {
         boolean running = true;
         
-        System.out.println("\n🧮 CALCULATRICE RMI - Menu Principal");
+        System.out.println("\n CALCULATRICE RMI - Menu Principal");
         System.out.println("====================================");
         
         while (running) {
             showMenu();
-            System.out.print("\n➡️  Choisissez une opération: ");
+            System.out.print("\n️ Choisissez une opération: ");
             
             try {
                 int choice = scanner.nextInt();
@@ -90,11 +90,11 @@ public class CalculatorClient {
                     case 10: performScientificOperation(calculator, scanner, "Tangente"); break;
                     case 11: handleMemoryOperations(calculator, scanner); break;
                     case 0:  running = false; break;
-                    default: System.out.println("❌ Option invalide!");
+                    default: System.out.println("Option invalide!");
                 }
                 
             } catch (Exception e) {
-                System.err.println("❌ Erreur: " + e.getMessage());
+                System.err.println("Erreur: " + e.getMessage());
                 scanner.nextLine(); // Vider le buffer
             }
         }
@@ -154,10 +154,10 @@ public class CalculatorClient {
                 case "Modulo": result = calculator.modulo(a, b); break;
             }
             
-            System.out.println("✅ Résultat " + operationName + ": " + result);
+            System.out.println("Résultat " + operationName + ": " + result);
             
         } catch (Exception e) {
-            System.err.println("❌ Erreur lors de " + operationName + ": " + e.getMessage());
+            System.err.println("Erreur lors de " + operationName + ": " + e.getMessage());
         }
     }
     
@@ -177,10 +177,10 @@ public class CalculatorClient {
                 case "Tangente": result = calculator.tan(angle); break;
             }
             
-            System.out.println("✅ " + operationName + "(" + angle + ") = " + result);
+            System.out.println("" + operationName + "(" + angle + ") = " + result);
             
         } catch (Exception e) {
-            System.err.println("❌ Erreur lors du calcul: " + e.getMessage());
+            System.err.println("Erreur lors du calcul: " + e.getMessage());
         }
     }
     
@@ -188,7 +188,7 @@ public class CalculatorClient {
      * Gère les opérations sur la mémoire
      */
     private static void handleMemoryOperations(Calculator calculator, Scanner scanner) {
-        System.out.println("\n💾 Gestion de la mémoire:");
+        System.out.println("\n Gestion de la mémoire:");
         System.out.println("1. Stocker dans mémoire");
         System.out.println("2. Lire mémoire");
         System.out.println("3. Effacer mémoire");
@@ -202,25 +202,25 @@ public class CalculatorClient {
                     System.out.print("Entrez la valeur à stocker: ");
                     double value = scanner.nextDouble();
                     calculator.setMemory(value);
-                    System.out.println("✅ Valeur stockée: " + value);
+                    System.out.println("Valeur stockée: " + value);
                     break;
                     
                 case 2:
                     double memValue = calculator.getMemory();
-                    System.out.println("📖 Mémoire actuelle: " + memValue);
+                    System.out.println("Mémoire actuelle: " + memValue);
                     break;
                     
                 case 3:
                     calculator.clearMemory();
-                    System.out.println("🗑️ Mémoire effacée");
+                    System.out.println("Mémoire effacée");
                     break;
                     
                 default:
-                    System.out.println("❌ Option mémoire invalide!");
+                    System.out.println("Option mémoire invalide!");
             }
             
         } catch (Exception e) {
-            System.err.println("❌ Erreur mémoire: " + e.getMessage());
+            System.err.println("Erreur mémoire: " + e.getMessage());
         }
     }
 }
